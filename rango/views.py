@@ -8,4 +8,4 @@ def index(request):
 
 def about(request):
     context_dict = {'boldmessage': "cat!"}
-    return HttpResponse(' Rango says hey there partner! <br/> <a href="/rango/">Index</a> ')
+    return render(request, 'rango/about.html', context=context_dict)
