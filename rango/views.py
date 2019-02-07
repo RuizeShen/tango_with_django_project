@@ -1,10 +1,13 @@
 from django.shortcuts import render
 
-from rango.forms import CategoryForm
+from rango.forms import CategoryForm
+
 
 from rango.models import Category
 
 from rango.models import Page
+
+from rango.forms import PageForm
 
 from django.http import HttpResponse
 
@@ -18,7 +21,7 @@ def index(request):
     page_list = Page.objects.order_by('-views')[:5]
     context_dict = {'categories': category_list, 'pages': page_list}
     # Render the response and send it back!
-    return render(request, 'rango/index.html', context_dict)
+    return render(request, 'rango/index.html', context = context_dict)
 
 def about(request):
     return render(request, 'rango/about.html')
@@ -65,7 +68,8 @@ def add_category(request):
             return index(request)
         else:
             # The supplied form contained errors -
-            # just print them to the terminal.
+            # just print them to the terminal.
+
             print(form.errors)
     return render(request, 'rango/add_category.html', {'form': form})
 def add_page(request, category_name_slug):
@@ -86,5 +90,6 @@ def add_page(request, category_name_slug):
         else:
             print(form.errors)
     context_dict = {'form':form, 'category': category}
-    return render(request, 'rango/add_page.html', context_dict)
+    return render(request, 'rango/add_page.html', context_dict)
+
     
