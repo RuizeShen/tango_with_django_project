@@ -60,21 +60,21 @@ def populate():
                 print("- {0} - {1}".format(str(c), str(p)))
 
 def add_page(cat, title, url, views):
-    p = Page.objects.get_or_create(category=cat, title=title)[0]
-    p.url=url
-    p.views=views
-    p.save()
-    return p
+        p = Page.objects.get_or_create(category=cat, title=title , views = views)[0]
+        p.url=url
+        p.views=views
+        p.save()
+            return p
 
 def add_cat(name , likes , views):
-    c = Category.objects.get_or_create(name=name)[0]
-    c.likes = likes
-    c.views = views
-    c.save()
-    return c
+        c = Category.objects.get_or_create(name=name , views = views ,likes = likes)[0]
+        c.likes = likes
+        c.views = views
+        c.save()
+        return c
 
 # Start execution here!
 if __name__ == '__main__':
-    print("Starting Rango population script...")
-    populate()
+        print("Starting Rango population script...")
+        populate()
 
