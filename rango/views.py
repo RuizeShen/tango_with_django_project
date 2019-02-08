@@ -41,8 +41,8 @@ def show_category(request, category_name_slug):
     except Category.DoesNotExist:
         context_dict['category'] = None
         context_dict['pages'] = None
-    response = render(request, 'rango/category.html', context_dict)
-    return response
+    return render(request, 'rango/category.html', context_dict)
+
 def add_category(request):
     form = CategoryForm()
     if request.method == 'POST':
@@ -119,6 +119,16 @@ def user_login(request):
     else:
         return render(request, 'rango/login.html', {})
 
+
+@login_required
+def restricted(request):
+    return render(request,'rango/restricted.html',{})
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('index'))
+
 def get_server_side_cookie(request, cookie, default_val=None):
     val = request.session.get(cookie)
     if not val:
@@ -141,16 +151,6 @@ def visitor_cookie_handler(request):
         request.session['last_visit'] = last_visit_cookie
     request.session['visits'] = visits
 
-
-
-@login_required
-def restricted(request):
-    return render(request,'rango/restricted.html',{})
-
-@login_required
-def user_logout(request):
-    logout(request)
-    return HttpResponseRedirect(reverse('index'))
 
 
 
